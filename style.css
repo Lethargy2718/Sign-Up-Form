@@ -80,16 +80,46 @@ img {
     padding: 1.2em;
 }
 
-form {
+.form {
     min-height: 240px;
     background-color: var(--clr-one);
     display: flex;
-    justify-content: stretch;
-    align-items: center;
-    gap: 10%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3%;
     flex: 2;
-    padding-left: var(--padding-hori);
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2); /* Horizontal, Vertical, Blur */
+    padding: var(--padding-vertical) var(--padding-hori);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+    align-items: center;
+}
+
+form {
+    width: 100%;
+    height: 80%;
+    gap: 10%;   
+    display: flex;
+
+}
+
+h2 {
+    width: 100%;
+    position: relative;
+}
+
+h2::before, h2::after {
+    content: "";
+    position: absolute;
+    background-color: var(--clr-four);
+    height: 2rem;
+}
+
+h2::before {
+    width: var(--padding-hori);
+    margin-left: calc(-1 * var(--padding-hori));
+}
+
+h2::after {
+    width: 100%;
 }
 
 .bottom {
@@ -145,4 +175,10 @@ input:hover, button:hover {
 
 input:focus {
     outline: none;
+}
+
+
+.bottom {
+    display: flex;
+    align-items: center;
 }
