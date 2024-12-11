@@ -154,7 +154,7 @@ input {
     align-self: center;
 }
 
-button {
+input[type="submit"] {
     all: unset;
     margin: var(--padding-vertical) var(--padding-hori);
     margin-right: 1em;
@@ -182,3 +182,8 @@ input:focus {
     display: flex;
     align-items: center;
 }
+
+#email-error {
+    background-color: red;
+}
+

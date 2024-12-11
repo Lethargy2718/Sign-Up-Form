@@ -19,7 +19,7 @@
         
         <div class="form">
             <h2>Sign Up Now</h2>
-            <form novalidate id="form">
+            <form novalidate id="Form">
                 <div class="col1 col">
                     <div class="input1 input">
                         <label for="first-name">First Name:</label>
@@ -27,8 +27,9 @@
                     </div>
     
                     <div class="input2 input">
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" placeholder="username@mail.com" required/>
+                        <label for="mail">Email:</label>
+                        <input type="email" name="email" id="mail" placeholder="username@mail.com" required/>
+                        <span id="email-error" class="error">test</span>
                     </div>
     
                     <div class="input3 input">
@@ -57,7 +58,7 @@
         </div>
         
         <div class="bottom">
-            <button type="submit" form="form">Submit</button>
+            <input type="submit" id="submit" form="Form">Submit</input>
             <span>Already have an account? <a href="#">Log in</a> now!   
         </div>
         
