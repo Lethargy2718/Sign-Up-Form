@@ -1,91 +1,99 @@
 const firstName = document.querySelector("#first-name")
 const lastName = document.querySelector("#last-name")
-
-const email = document.querySelector("#mail")
-const emailError = document.querySelector("#mail + .error")
-
+const email = document.querySelector("#email")
 const tel = document.querySelector("#phone")
-
 const pass = document.querySelector("#pass")
-const passError = document.querySelector("#pass-error")
-
 const confirmPass = document.querySelector("#confirm-pass")
-const confirmPassError = document.querySelector("#confirm-pass-error")
+const submit = document.querySelector("#submit")
 
-const borderColor = getComputedStyle(document.documentElement).getPropertyValue('--clr-five').trim()
-const inputs = [firstName, lastName, email, tel]
 const passes = [pass, confirmPass]
+const names = [firstName, lastName]
+const empties = [firstName, lastName, email, pass, confirmPass]
 
-email.addEventListener("input", () => {
-    if (email.value === "") {
-        email.classList.remove("invalid")
-        email.classList.remove("valid")
-        emailError.classList.remove("active")
-    }
-
-    else if (email.validity.patternMismatch) {
-        email.classList.add("invalid")
-        email.classList.remove("valid")
-        emailError.classList.add("active")
-        emailError.textContent = "Invalid email address."
-    }
-
-    else {
-        email.classList.remove("invalid")
-        email.classList.add("valid")
-        emailError.classList.remove("active")
-    }  
+names.forEach(each => {
+    each.addEventListener("input", () => {
+        let error = GetError(each)
+        if (each.value === "") {
+            error.classList.add("active")
+            error.textContent = "This field is required."
+        }
+        else {
+            error.classList.remove("active")
+        }
+    }) 
 })
 
-passes.forEach(input => {
-    addEventListener("input", () => {
-        // Nothing written in the pass field
-        if (pass.value === "") {            
-            pass.classList.remove("valid")
-            pass.classList.remove("invalid")
-            passError.classList.remove("active")
-            passError.classList.add("inactive")
+email.addEventListener("input", () => {
+    let error = GetError(email)
+    // Invalid email. Add an error message.
+    if (email.validity.patternMismatch) {
+        error.classList.add("active")
+        error.textContent = "Invalid email address."
+    }
+    // Empty email. Add an error message.
+    else if (email.value === "") {
+        error.classList.add("active")
+        error.textContent = "This field is required."
+    }  
+    // Valid email. Remove the error message.
+    else {
+        error.classList.remove("active")
+    }
+})
 
-            confirmPass.classList.remove("valid")
-            confirmPass.classList.remove("invalid")
-            confirmPassError.classList.remove("active")
-            confirmPassError.classList.add("inactive")
-        }
-        // Something written in the pass field
-        else {
-            // pass = confirm
-            if (pass.value === confirmPass.value) {
-                pass.classList.add("valid")
-                confirmPass.classList.add("valid")
-
-                pass.classList.remove("invalid")
-                confirmPass.classList.remove("invalid")
-
-                passError.classList.add("inactive")
-                confirmPassError.classList.add("inactive")
-
-                passError.classList.remove("active")
-                confirmPassError.classList.remove("active")
-
+// Password validation
+// Logic: if you input in ANY password field, check BOTH.
+passes.forEach(eachPass => {
+    eachPass.addEventListener("input", () => {
+        passes.forEach(each => {
+            let error = GetError(each)
+            // Either field is empty. Remove the error msg, but keep the red border.
+            if (eachPass.value === "" || confirmPass.value === "") {
+                passes.forEach(each => {
+                    let error = GetError(each)
+                    each.classList.add("invalid")
+                    error.classList.remove("active")
+                    valid = false
+                })
             }
-            // pass != confirm
+            // Pass = confirm pass. Valid.
+            else if (pass.value === confirmPass.value) {
+                each.classList.remove("invalid")
+                error.classList.remove("active")
+                valid = true
+            }
             else {
-                console.log("invalid")
-                pass.classList.add("invalid")
-                confirmPass.classList.add("invalid")
-
-                confirmPassError.classList.remove("inactive")
-                confirmPassError.classList.add("active")
-
-                passError.classList.remove("inactive")
-                passError.classList.add("active")
-
-                passError.textContent = "Passwords don't match."
-                confirmPassError.textContent = "passwords don't match."
+                each.classList.add("invalid")
+                error.classList.add("active")
+                error.textContent = "Passwords don't match."
+                valid = false
             }
+        })
+    }) 
+})
+
+submit.addEventListener("click", (event) => {
+    empties.forEach(empty => {
+        if (empty.value === "") {
+            let error = GetError(empty)
+            error.classList.add("active")
+            error.classList.add("invalid")
+            error.textContent = "This field is required."
+            valid = false
+        }
+
+        if (!valid) {
+            event.preventDefault()
+            document.querySelectorAll(".error.active").forEach(error => {
+                error.classList.add('shake')
+                setTimeout(() => {
+                    error.classList.remove('shake')
+                }, 500)
+            })
         }
     })
 })
+
 
 // Returns the error span sibling of an element.
 function GetError(element) {
