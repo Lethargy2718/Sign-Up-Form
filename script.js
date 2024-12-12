@@ -10,6 +10,8 @@ const passes = [pass, confirmPass]
 const names = [firstName, lastName]
 const empties = [firstName, lastName, email, pass, confirmPass]
 
+let valid = false
+
 names.forEach(each => {
     each.addEventListener("input", () => {
         let error = GetError(each)
@@ -82,15 +84,15 @@ submit.addEventListener("click", (event) => {
             valid = false
         }
 
-        if (!valid) {
-            event.preventDefault()
-            document.querySelectorAll(".error.active").forEach(error => {
-                error.classList.add('shake')
-                setTimeout(() => {
-                    error.classList.remove('shake')
-                }, 500)
-            })
-        }
+    if (!valid) {
+        event.preventDefault()
+        document.querySelectorAll(".error.active").forEach(error => {
+            error.classList.add('shake')
+            setTimeout(() => {
+                error.classList.remove('shake')
+            }, 500)
+        })
+    }
     })
 })
 

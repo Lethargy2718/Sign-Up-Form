@@ -88,7 +88,7 @@ img {
     flex-direction: column;
     justify-content: center;
     gap: 5%;
-    flex: 2 0 60%;
+    flex: 2;
     padding: var(--padding-vertical) var(--padding-hori);
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
     align-items: center;
@@ -160,7 +160,7 @@ input:focus {
     outline: none;
 }
 
-input:hover:not(:disabled), button:hover {
+input:hover, button:hover {
     transform: translate(-1.5px,-1.5px);
     box-shadow: 5px 5px 3px 2px rgb(0,0,0,0.3);
 }
@@ -184,11 +184,16 @@ button {
     width: clamp(75px, 10%, 120px);
     height: 15%;
     box-shadow: 2px 2px 2px 2px rgb(0,0,0,0.2);
-    background-color: var(--clr-two);
+    color: white;
+    background-color: #058494;
     text-align: center;
     border-radius: 5px;
-    border: 0.1px solid var(--clr-five);
+    border: 0.1px solid #002e34;
     padding: 0.8em;
+}
+
+button:hover {
+    box-shadow: 3.5px 3.5px 2px 2px rgb(0,0,0,0.35);
 }
 
 .bottom {
